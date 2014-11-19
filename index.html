@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Avatar Maker</title>
+<script src="js/phaser.min.js"></script>
+</head>
+<body>
+<style>
+body, html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background: #333333;
+}
+#game {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+canvas {
+  margin: 0 auto;
+}
+</style>
+<script type="text/javascript">window.onload = function() {
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+
+function preload() {
+  //game.load.spritesheet('balls', 'balls.png', 17, 17);
+}
+
+function create() {
+}
+
+function update() {
+}
+
+};</script>
+
+<div id="game"></div>
+
+</body>
+</html>
