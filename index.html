@@ -11,7 +11,7 @@ body, html {
   padding: 0;
   margin: 0;
   height: 100%;
-  background: #333333;
+  background: #475C77;
 }
 #game {
   position: relative;
@@ -23,17 +23,176 @@ canvas {
 }
 </style>
 <script type="text/javascript">window.onload = function() {
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+var size = 320;
+var game = new Phaser.Game(size, size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
 function preload() {
-  //game.load.spritesheet('balls', 'balls.png', 17, 17);
+
+  // sound
+  game.load.audio('ding', 'ding.wav');
+  game.load.audio('blip', 'blip.wav');
+  game.load.audio('select', 'select.wav');
+  game.load.audio('random', 'random.wav');
+  game.load.audio('color', 'color.wav');
+
+  // ui
+  game.load.image('hex', 'ui/hex.svg', size, size);
+  game.load.image('larrow', 'ui/arrow-l.svg', 25, 25);
+  game.load.image('rarrow', 'ui/arrow-r.svg', 25, 25);
+  game.load.image('clear', 'ui/blank.png', 25, 25);
+
+  // parts
+  game.load.image('faces1', 'parts_faces-01.svg', size, size);
+  game.load.image('faces2', 'parts_faces-02.svg', size, size);
+  game.load.image('faces3', 'parts_faces-03.svg', size, size);
+
+  game.load.image('eyes1', 'parts_eyes-04.svg', size, size);
+  game.load.image('eyes2', 'parts_eyes-05.svg', size, size);
+
+  game.load.image('mouth1', 'parts_mouth-06.svg', size, size);
+  game.load.image('mouth2', 'parts_mouth-07.svg', size, size);
+  game.load.image('mouth3', 'parts_mouth-08.svg', size, size);
+
+  game.load.image('beard1', 'parts_beard-09.svg', size, size);
+  game.load.image('beard2', 'parts_beard-10.svg', size, size);
+  game.load.image('beard3', 'parts_beard-11.svg', size, size);
+  game.load.image('beard4', 'parts_beard-12.svg', size, size);
+  game.load.image('beard5', 'parts_beard-13.svg', size, size);
+  game.load.image('beard6', 'parts_beard-30.svg', size, size);
+  game.load.image('beard7', 'parts_beard-31.svg', size, size);
+  game.load.image('beard8', 'parts_beard-32.svg', size, size);
+  game.load.image('beard9', 'parts_beard-33.svg', size, size);
+  game.load.image('beard10', 'parts_beard-34.svg', size, size);
+
+  game.load.image('hair1', 'parts_hair-14.svg', size, size);
+  game.load.image('hair2', 'parts_hair-15.svg', size, size);
+  game.load.image('hair3', 'parts_hair-16.svg', size, size);
+  game.load.image('hair4', 'parts_hair-17.svg', size, size);
+  game.load.image('hair5', 'parts_hair-18.svg', size, size);
+
+  game.load.image('shirt1', 'parts_shirt-19.svg', size, size);
+  game.load.image('shirt2', 'parts_shirt-20.svg', size, size);
+  game.load.image('shirt3', 'parts_shirt-21.svg', size, size);
+  game.load.image('shirt4', 'parts_shirt-22.svg', size, size);
+  game.load.image('shirt5', 'parts_shirt-23.svg', size, size);
+  game.load.image('shirt6', 'parts_shirt-24.svg', size, size);
+  game.load.image('shirt7', 'parts_shirt-25.svg', size, size);
+  game.load.image('shirt8', 'parts_shirt-26.svg', size, size);
+  game.load.image('shirt9', 'parts_shirt-27.svg', size, size);
+  game.load.image('shirt10', 'parts_shirt-28.svg', size, size);
+  game.load.image('shirt11', 'parts_shirt-29.svg', size, size);
+
 }
 
 function create() {
+
+  // setup slots for sprit
+  game.slot = {};
+  game.slot.face = game.add.sprite(55, 45, 'faces3');
+  game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
+  game.slot.mouth = game.add.sprite(55, 45, 'mouth1');
+  game.slot.beard = game.add.sprite(55, 45, 'beard1');
+  game.slot.hair = game.add.sprite(55, 45, 'hair1');
+  game.slot.shirt = game.add.sprite(55, 45, 'shirt1');
+
+  game.add.sprite(0, 0, 'hex');
+
+  game.fxding = game.add.audio('ding');
+  game.fxblip = game.add.audio('blip');
+  game.fxselect = game.add.audio('select');
+  game.fxrandom = game.add.audio('random');
+  game.fxcolor = game.add.audio('color');
+
+  game.stage.backgroundColor = '#8ACBFD';
+
+  // left arrow
+  var buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
+  buttonL.scale.set(.25, .25);
+
+  // right arrow
+  var buttonR = game.add.button(246, 150, 'rarrow', clickArrow, this, 1, 1, 1);
+  buttonR.scale.set(.25, .25);
+
+  // button label
+  var selectLabel = game.add.button(100, 266, 'clear', clickSelect, this, 1, 1, 1);
+  selectLabel.scale.set(.25, .25);
+
+  game.categories = ['face','hair','beard','eyes','mouth','shirt'];
+  game.face = ['faces1', 'faces2', 'faces3'];
+  game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5'];
+  game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10'];
+  game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11'];
+  game.eyes = ['eyes1', 'eyes2'];
+  game.mouth = ['mouth1', 'mouth2', 'mouth3'];
+  game.colors = ['#48B90A', '#79C95A', '#FF3E05', '#FE9E8E', '#0063FF', '#558EFC', '#475C77', '#A2ADB9', '#FFD40A', '#0096FF', '#8ACBFD', '#FF6707', '#FE8D5A', '#6E44F1', '#9478F2', '#B7A5F6', '#FD37DF', '#FB70E6', '#FC9FED'];
+  game.count = 0;
+  game.counts = {};
+  game.counts['face'] = 0;
+  game.counts['hair'] = 0;
+  game.counts['eyes'] = 0;
+  game.counts['mouth'] = 0;
+  game.counts['shirt'] = 0;
+  game.counts['beard'] = 0;
+  game.currentCategory = game.categories[0];
+  game.text = game.add.text(game.world.centerX, 294, game.currentCategory.toUpperCase(), {
+      font: "500 20px Colfax",
+      fill: "#E25700",
+      align: "center"
+  });
+  game.text.anchor.setTo(0.5, 0.5);
+
+  // random bg button
+  var buttonRand = game.add.button(0, 270, 'clear', randomAll, this, 1, 1, 1);
+  buttonRand.scale.set(.25, .25);
+
+  // random all button
+  var buttonRandAll = game.add.button(150, 150, 'clear', changeBg, this, 1, 1, 1);
+  buttonRandAll.scale.set(.25, .25);
+
+}
+
+function clickArrow(button) {
+  if (button.key == 'rarrow') {
+    var c = game[game.currentCategory][++game.counts[game.currentCategory] % game[game.currentCategory].length] ;
+  } else {
+    var c = game[game.currentCategory][--game.counts[game.currentCategory] % game[game.currentCategory].length] ;
+  }
+  game.slot[game.currentCategory].loadTexture(c,0,false);
+  game.fxselect.play();
+}
+function clickSelect() {
+  game.fxblip.play();
+  game.t = game.categories[++game.count % game.categories.length] ;
+  game.currentCategory = game.t;
+  game.text.setText(game.t.toUpperCase());
 }
 
 function update() {
 }
+
+function changeBg() {
+  game.fxcolor.play();
+  game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
+}
+
+function randomAll() {
+  //changeBg();
+  game.fxrandom.play();
+  game.categories = ['face','hair','beard','eyes','mouth','shirt'];
+  var rand = 0;
+
+  for (var prop in game.categories) {
+    var c = game.categories[prop];
+    //console.log(c);
+
+    rand = game[c][Math.floor(Math.random() * game[c].length)];
+    game.slot[c].loadTexture(rand,0,false);
+  }
+
+
+}
+
+
 
 };</script>
 
