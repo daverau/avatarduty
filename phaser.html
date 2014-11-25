@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-title" content="Phaser App">
 <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
 
-<title>Avatar Maker</title>
+<title>AvatarDuty</title>
 <script src="js/phaser.min.js"></script>
 <script src="js/jquery-2.1.1.min.js"></script>
 </head>
@@ -41,17 +41,19 @@ canvas {
 // global var for settings
 var avatar = {};
 avatar.size = 320; // size of canvas/base graphics
-avatar.gender = 'male'; // sets base graphics
+avatar.gender = 'female'; // sets base graphics
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
 function preload() {
 
-  var canvas = document.getElementsByTagName('canvas')[0];
-  console.log(canvas);
-  canvas.width *= window.devicePixelRatio;
-  canvas.height *= window.devicePixelRatio;
-  canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
+  // retina resize not working as expected...
+  // http://www.html5gamedevs.com/topic/543-retina-displays-question/
+  
+  // var canvas = document.getElementsByTagName('canvas')[0];
+  // canvas.width *= window.devicePixelRatio;
+  // canvas.height *= window.devicePixelRatio;
+  // canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
 
 
   // sound
@@ -125,32 +127,29 @@ function preload() {
 
     game.load.image('eyes1', 'ui/female_eyes-04.svg', avatar.size, avatar.size);
     game.load.image('eyes2', 'ui/female_eyes-05.svg', avatar.size, avatar.size);
-    game.load.image('eyes3', 'ui/female_eyes-36.svg', avatar.size, avatar.size);
 
-    game.load.image('mouth1', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
+    game.load.image('mouth1', 'ui/female_mouth-25.svg', avatar.size, avatar.size);
     game.load.image('mouth2', 'ui/female_mouth-07.svg', avatar.size, avatar.size);
     game.load.image('mouth3', 'ui/female_mouth-08.svg', avatar.size, avatar.size);
+    game.load.image('mouth4', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
 
-    game.load.image('hair1', 'ui/female_hair-14.svg', avatar.size, avatar.size);
-    game.load.image('hair2', 'ui/female_hair-15.svg', avatar.size, avatar.size);
-    game.load.image('hair3', 'ui/female_hair-16.svg', avatar.size, avatar.size);
-    game.load.image('hair4', 'ui/female_hair-17.svg', avatar.size, avatar.size);
-    game.load.image('hair5', 'ui/female_hair-18.svg', avatar.size, avatar.size);
-    game.load.image('hair6', 'ui/female_hair-38.svg', avatar.size, avatar.size);
+    game.load.image('hair1', 'ui/female_hair-09.svg', avatar.size, avatar.size);
+    game.load.image('hair2', 'ui/female_hair-10.svg', avatar.size, avatar.size);
+    game.load.image('hair3', 'ui/female_hair-11.svg', avatar.size, avatar.size);
+    game.load.image('hair4', 'ui/female_hair-12.svg', avatar.size, avatar.size);
+    game.load.image('hair5', 'ui/female_hair-13.svg', avatar.size, avatar.size);
 
-    game.load.image('shirt1', 'ui/female_shirt-19.svg', avatar.size, avatar.size);
-    game.load.image('shirt2', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
-    game.load.image('shirt3', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
-    game.load.image('shirt4', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
-    game.load.image('shirt5', 'ui/female_shirt-23.svg', avatar.size, avatar.size);
-    game.load.image('shirt6', 'ui/female_shirt-24.svg', avatar.size, avatar.size);
-    game.load.image('shirt7', 'ui/female_shirt-25.svg', avatar.size, avatar.size);
-    game.load.image('shirt8', 'ui/female_shirt-26.svg', avatar.size, avatar.size);
-    game.load.image('shirt9', 'ui/female_shirt-27.svg', avatar.size, avatar.size);
-    game.load.image('shirt10', 'ui/female_shirt-28.svg', avatar.size, avatar.size);
-    game.load.image('shirt11', 'ui/female_shirt-29.svg', avatar.size, avatar.size);
-    game.load.image('shirt12', 'ui/female_shirt-35.svg', avatar.size, avatar.size);
-    game.load.image('shirt13', 'ui/female_shirt-37.svg', avatar.size, avatar.size);
+    game.load.image('shirt1', 'ui/female_shirt-14.svg', avatar.size, avatar.size);
+    game.load.image('shirt2', 'ui/female_shirt-15.svg', avatar.size, avatar.size);
+    game.load.image('shirt3', 'ui/female_shirt-16.svg', avatar.size, avatar.size);
+    game.load.image('shirt4', 'ui/female_shirt-17.svg', avatar.size, avatar.size);
+    game.load.image('shirt5', 'ui/female_shirt-18.svg', avatar.size, avatar.size);
+    game.load.image('shirt6', 'ui/female_shirt-19.svg', avatar.size, avatar.size);
+    game.load.image('shirt7', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
+    game.load.image('shirt8', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
+    game.load.image('shirt9', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
+    game.load.image('shirt10', 'ui/female_shirt-23.svg', avatar.size, avatar.size);
+    game.load.image('shirt11', 'ui/female_shirt-24.svg', avatar.size, avatar.size);
   }
 
 } // end preloading
@@ -186,11 +185,10 @@ function create() {
 
   if (avatar.gender == 'female') {
     game.face = ['faces1', 'faces2', 'faces3'];
-    game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5', 'hair6'];
-    game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10', 'beard11'];
-    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11', 'shirt12', 'shirt13'];
-    game.eyes = ['eyes1', 'eyes2', 'eyes3'];
-    game.mouth = ['mouth1', 'mouth2', 'mouth3'];
+    game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5'];
+    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11'];
+    game.eyes = ['eyes1', 'eyes2'];
+    game.mouth = ['mouth1', 'mouth2', 'mouth3', 'mouth4'];
   }
   
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Avatar Maker</title>
+<title>AvatarDuty</title>
 </head>
 <body>
 <style>
@@ -66,70 +66,175 @@ document.getElementById('rarrow').onclick = function(e){
   audio.blip.play();
 };
 
+// global var for settings
+var avatar = {};
+avatar.size = 320; // size of canvas/base graphics
+avatar.gender = 'male'; // sets base graphics
+// init phaser
+var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
+
 function preload() {
 
+  var canvas = document.getElementsByTagName('canvas')[0];
+  console.log(canvas);
+  canvas.width *= window.devicePixelRatio;
+  canvas.height *= window.devicePixelRatio;
+  canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
+
+
+  // sound
+  game.load.audio('ding', 'sfx/ding.wav');
+  game.load.audio('blip', 'sfx/blip.wav');
+  game.load.audio('select', 'sfx/select.wav');
+  game.load.audio('random', 'sfx/random.wav');
+  game.load.audio('color', 'sfx/color.wav');
+
   // ui
-  game.load.image('hex', 'ui/hex.svg', size, size);
+  game.load.image('hex', 'ui/hex.svg', avatar.size, avatar.size);
   game.load.image('larrow', 'ui/arrow-l.svg', 25, 25);
   game.load.image('rarrow', 'ui/arrow-r.svg', 25, 25);
   game.load.image('clear', 'ui/blank.png', 25, 25);
+  game.load.image('savebutton', 'ui/save.svg', 72, 42);
 
   // parts
-  game.load.image('faces1', 'ui/parts_faces-01.svg', size, size);
-  game.load.image('faces2', 'ui/parts_faces-02.svg', size, size);
-  game.load.image('faces3', 'ui/parts_faces-03.svg', size, size);
+  // male
+  if (avatar.gender == 'male') {
+    game.load.image('faces1', 'ui/male_faces-01.svg', avatar.size, avatar.size);
+    game.load.image('faces2', 'ui/male_faces-02.svg', avatar.size, avatar.size);
+    game.load.image('faces3', 'ui/male_faces-03.svg', avatar.size, avatar.size);
 
-  game.load.image('eyes1', 'ui/parts_eyes-04.svg', size, size);
-  game.load.image('eyes2', 'ui/parts_eyes-05.svg', size, size);
-  game.load.image('eyes3', 'ui/parts_eyes-36.svg', size, size);
+    game.load.image('eyes1', 'ui/male_eyes-04.svg', avatar.size, avatar.size);
+    game.load.image('eyes2', 'ui/male_eyes-05.svg', avatar.size, avatar.size);
+    game.load.image('eyes3', 'ui/male_eyes-36.svg', avatar.size, avatar.size);
 
-  game.load.image('mouth1', 'ui/parts_mouth-06.svg', size, size);
-  game.load.image('mouth2', 'ui/parts_mouth-07.svg', size, size);
-  game.load.image('mouth3', 'ui/parts_mouth-08.svg', size, size);
+    game.load.image('mouth1', 'ui/male_mouth-06.svg', avatar.size, avatar.size);
+    game.load.image('mouth2', 'ui/male_mouth-07.svg', avatar.size, avatar.size);
+    game.load.image('mouth3', 'ui/male_mouth-08.svg', avatar.size, avatar.size);
 
-  game.load.image('beard1', 'ui/parts_beard-09.svg', size, size);
-  game.load.image('beard2', 'ui/parts_beard-10.svg', size, size);
-  game.load.image('beard3', 'ui/parts_beard-11.svg', size, size);
-  game.load.image('beard4', 'ui/parts_beard-12.svg', size, size);
-  game.load.image('beard5', 'ui/parts_beard-13.svg', size, size);
-  game.load.image('beard6', 'ui/parts_beard-30.svg', size, size);
-  game.load.image('beard7', 'ui/parts_beard-31.svg', size, size);
-  game.load.image('beard8', 'ui/parts_beard-32.svg', size, size);
-  game.load.image('beard9', 'ui/parts_beard-33.svg', size, size);
-  game.load.image('beard10', 'ui/parts_beard-34.svg', size, size);
+    game.load.image('beard1', 'ui/male_beard-09.svg', avatar.size, avatar.size);
+    game.load.image('beard2', 'ui/male_beard-10.svg', avatar.size, avatar.size);
+    game.load.image('beard3', 'ui/male_beard-11.svg', avatar.size, avatar.size);
+    game.load.image('beard4', 'ui/male_beard-12.svg', avatar.size, avatar.size);
+    game.load.image('beard5', 'ui/male_beard-13.svg', avatar.size, avatar.size);
+    game.load.image('beard6', 'ui/male_beard-30.svg', avatar.size, avatar.size);
+    game.load.image('beard7', 'ui/male_beard-31.svg', avatar.size, avatar.size);
+    game.load.image('beard8', 'ui/male_beard-32.svg', avatar.size, avatar.size);
+    game.load.image('beard9', 'ui/male_beard-33.svg', avatar.size, avatar.size);
+    game.load.image('beard10', 'ui/male_beard-34.svg', avatar.size, avatar.size);
+    game.load.image('beard11', 'ui/male_beard-39.svg', avatar.size, avatar.size);
 
-  game.load.image('hair1', 'ui/parts_hair-14.svg', size, size);
-  game.load.image('hair2', 'ui/parts_hair-15.svg', size, size);
-  game.load.image('hair3', 'ui/parts_hair-16.svg', size, size);
-  game.load.image('hair4', 'ui/parts_hair-17.svg', size, size);
-  game.load.image('hair5', 'ui/parts_hair-18.svg', size, size);
-  game.load.image('hair6', 'ui/parts_hair-38.svg', size, size);
+    game.load.image('hair1', 'ui/male_hair-14.svg', avatar.size, avatar.size);
+    game.load.image('hair2', 'ui/male_hair-15.svg', avatar.size, avatar.size);
+    game.load.image('hair3', 'ui/male_hair-16.svg', avatar.size, avatar.size);
+    game.load.image('hair4', 'ui/male_hair-17.svg', avatar.size, avatar.size);
+    game.load.image('hair5', 'ui/male_hair-18.svg', avatar.size, avatar.size);
+    game.load.image('hair6', 'ui/male_hair-38.svg', avatar.size, avatar.size);
 
-  game.load.image('shirt1', 'ui/parts_shirt-19.svg', size, size);
-  game.load.image('shirt2', 'ui/parts_shirt-20.svg', size, size);
-  game.load.image('shirt3', 'ui/parts_shirt-21.svg', size, size);
-  game.load.image('shirt4', 'ui/parts_shirt-22.svg', size, size);
-  game.load.image('shirt5', 'ui/parts_shirt-23.svg', size, size);
-  game.load.image('shirt6', 'ui/parts_shirt-24.svg', size, size);
-  game.load.image('shirt7', 'ui/parts_shirt-25.svg', size, size);
-  game.load.image('shirt8', 'ui/parts_shirt-26.svg', size, size);
-  game.load.image('shirt9', 'ui/parts_shirt-27.svg', size, size);
-  game.load.image('shirt10', 'ui/parts_shirt-28.svg', size, size);
-  game.load.image('shirt11', 'ui/parts_shirt-29.svg', size, size);
-  game.load.image('shirt12', 'ui/parts_shirt-35.svg', size, size);
+    game.load.image('shirt1', 'ui/male_shirt-19.svg', avatar.size, avatar.size);
+    game.load.image('shirt2', 'ui/male_shirt-20.svg', avatar.size, avatar.size);
+    game.load.image('shirt3', 'ui/male_shirt-21.svg', avatar.size, avatar.size);
+    game.load.image('shirt4', 'ui/male_shirt-22.svg', avatar.size, avatar.size);
+    game.load.image('shirt5', 'ui/male_shirt-23.svg', avatar.size, avatar.size);
+    game.load.image('shirt6', 'ui/male_shirt-24.svg', avatar.size, avatar.size);
+    game.load.image('shirt7', 'ui/male_shirt-25.svg', avatar.size, avatar.size);
+    game.load.image('shirt8', 'ui/male_shirt-26.svg', avatar.size, avatar.size);
+    game.load.image('shirt9', 'ui/male_shirt-27.svg', avatar.size, avatar.size);
+    game.load.image('shirt10', 'ui/male_shirt-28.svg', avatar.size, avatar.size);
+    game.load.image('shirt11', 'ui/male_shirt-29.svg', avatar.size, avatar.size);
+    game.load.image('shirt12', 'ui/male_shirt-35.svg', avatar.size, avatar.size);
+    game.load.image('shirt13', 'ui/male_shirt-37.svg', avatar.size, avatar.size);
+  }
 
-}
+  // female
+  if (avatar.gender == 'female') {
+    game.load.image('faces1', 'ui/female_faces-01.svg', avatar.size, avatar.size);
+    game.load.image('faces2', 'ui/female_faces-02.svg', avatar.size, avatar.size);
+    game.load.image('faces3', 'ui/female_faces-03.svg', avatar.size, avatar.size);
+
+    game.load.image('eyes1', 'ui/female_eyes-04.svg', avatar.size, avatar.size);
+    game.load.image('eyes2', 'ui/female_eyes-05.svg', avatar.size, avatar.size);
+    game.load.image('eyes3', 'ui/female_eyes-36.svg', avatar.size, avatar.size);
+
+    game.load.image('mouth1', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
+    game.load.image('mouth2', 'ui/female_mouth-07.svg', avatar.size, avatar.size);
+    game.load.image('mouth3', 'ui/female_mouth-08.svg', avatar.size, avatar.size);
+
+    game.load.image('hair1', 'ui/female_hair-14.svg', avatar.size, avatar.size);
+    game.load.image('hair2', 'ui/female_hair-15.svg', avatar.size, avatar.size);
+    game.load.image('hair3', 'ui/female_hair-16.svg', avatar.size, avatar.size);
+    game.load.image('hair4', 'ui/female_hair-17.svg', avatar.size, avatar.size);
+    game.load.image('hair5', 'ui/female_hair-18.svg', avatar.size, avatar.size);
+    game.load.image('hair6', 'ui/female_hair-38.svg', avatar.size, avatar.size);
+
+    game.load.image('shirt1', 'ui/female_shirt-19.svg', avatar.size, avatar.size);
+    game.load.image('shirt2', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
+    game.load.image('shirt3', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
+    game.load.image('shirt4', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
+    game.load.image('shirt5', 'ui/female_shirt-23.svg', avatar.size, avatar.size);
+    game.load.image('shirt6', 'ui/female_shirt-24.svg', avatar.size, avatar.size);
+    game.load.image('shirt7', 'ui/female_shirt-25.svg', avatar.size, avatar.size);
+    game.load.image('shirt8', 'ui/female_shirt-26.svg', avatar.size, avatar.size);
+    game.load.image('shirt9', 'ui/female_shirt-27.svg', avatar.size, avatar.size);
+    game.load.image('shirt10', 'ui/female_shirt-28.svg', avatar.size, avatar.size);
+    game.load.image('shirt11', 'ui/female_shirt-29.svg', avatar.size, avatar.size);
+    game.load.image('shirt12', 'ui/female_shirt-35.svg', avatar.size, avatar.size);
+    game.load.image('shirt13', 'ui/female_shirt-37.svg', avatar.size, avatar.size);
+  }
+
+} // end preloading
 
 function create() {
 
-  // setup slots for sprit
+  if (avatar.gender == 'male') {
+    game.categories = ['face','hair','beard','eyes','mouth','shirt'];
+  } else {
+    game.categories = ['face','hair','eyes','mouth','shirt']; // hide beards for female
+  }
+
+  game.colors = ['#48B90A', '#79C95A', '#FF3E05', '#FE9E8E', '#0063FF', '#558EFC', '#475C77', '#A2ADB9', '#FFD40A', '#0096FF', '#8ACBFD', '#FF6707', '#FE8D5A', '#6E44F1', '#9478F2', '#B7A5F6', '#FD37DF', '#FB70E6', '#FC9FED'];
+
+  // setup slots for sprites
   game.slot = {};
   game.slot.face = game.add.sprite(55, 45, 'faces3');
-  game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
   game.slot.mouth = game.add.sprite(55, 45, 'mouth1');
-  game.slot.beard = game.add.sprite(55, 45, 'beard1');
   game.slot.hair = game.add.sprite(55, 45, 'hair1');
   game.slot.shirt = game.add.sprite(55, 45, 'shirt1');
+  game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
+
+  if (avatar.gender == 'male') {
+    game.face = ['faces1', 'faces2', 'faces3'];
+    game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5', 'hair6'];
+    game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10', 'beard11'];
+    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11', 'shirt12', 'shirt13'];
+    game.eyes = ['eyes1', 'eyes2', 'eyes3'];
+    game.mouth = ['mouth1', 'mouth2', 'mouth3'];
+
+    game.slot.beard = game.add.sprite(55, 45, 'beard1');
+  }
+
+  if (avatar.gender == 'female') {
+    game.face = ['faces1', 'faces2', 'faces3'];
+    game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5', 'hair6'];
+    game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10', 'beard11'];
+    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11', 'shirt12', 'shirt13'];
+    game.eyes = ['eyes1', 'eyes2', 'eyes3'];
+    game.mouth = ['mouth1', 'mouth2', 'mouth3'];
+  }
+  
+
+  // keep track of current array pointer counts
+  // this is messy/lame and could be replaced with a proper loop
+  game.count = 0;
+  game.counts = {};
+  game.counts['face'] = 0;
+  game.counts['hair'] = 0;
+  game.counts['eyes'] = 0;
+  game.counts['mouth'] = 0;
+  game.counts['shirt'] = 0;
+  game.counts['beard'] = 0;
+
+  // set current category for select button
+  game.currentCategory = game.categories[0];
 
   game.add.sprite(0, 0, 'hex');
 
@@ -140,6 +245,10 @@ function create() {
   game.fxcolor = game.add.audio('color');
 
   game.stage.backgroundColor = '#8ACBFD';
+
+  // save
+  var saveButton = game.add.button(238, 268, 'savebutton', clickSave, this, 1, 1, 1);
+  //saveButton.scale.set(.25, .25);
 
   // left arrow
   var buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
@@ -153,23 +262,7 @@ function create() {
   var selectLabel = game.add.button(100, 266, 'clear', clickSelect, this, 1, 1, 1);
   selectLabel.scale.set(.25, .25);
 
-  game.categories = ['face','hair','beard','eyes','mouth','shirt'];
-  game.face = ['faces1', 'faces2', 'faces3'];
-  game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5', 'hair6'];
-  game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10'];
-  game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11', 'shirt12'];
-  game.eyes = ['eyes1', 'eyes2', 'eyes3'];
-  game.mouth = ['mouth1', 'mouth2', 'mouth3'];
-  game.colors = ['#48B90A', '#79C95A', '#FF3E05', '#FE9E8E', '#0063FF', '#558EFC', '#475C77', '#A2ADB9', '#FFD40A', '#0096FF', '#8ACBFD', '#FF6707', '#FE8D5A', '#6E44F1', '#9478F2', '#B7A5F6', '#FD37DF', '#FB70E6', '#FC9FED'];
-  game.count = 0;
-  game.counts = {};
-  game.counts['face'] = 0;
-  game.counts['hair'] = 0;
-  game.counts['eyes'] = 0;
-  game.counts['mouth'] = 0;
-  game.counts['shirt'] = 0;
-  game.counts['beard'] = 0;
-  game.currentCategory = game.categories[0];
+  // show select button and text
   game.text = game.add.text(game.world.centerX, 294, game.currentCategory.toUpperCase(), {
       font: "500 20px Colfax",
       fill: "#E25700",
@@ -178,39 +271,51 @@ function create() {
   game.text.anchor.setTo(0.5, 0.5);
 
   // random bg button
-  var buttonRand = game.add.button(200, 200, 'clear', randomAll, this, 1, 1, 1);
+  var buttonRand = game.add.button(100, 0, 'clear', randomAll, this, 1, 1, 1);
   buttonRand.scale.set(.25, .25);
 
   // random all button
   var buttonRandAll = game.add.button(100, 150, 'clear', changeBg, this, 1, 1, 1);
   buttonRandAll.scale.set(.25, .25);
 
-}
+} // end create()
 
 function clickArrow(button) {
+  game.fxblip.play();
   if (button.key == 'rarrow') {
+    // get next array item
     var c = game[game.currentCategory][++game.counts[game.currentCategory] % game[game.currentCategory].length] ;
   } else {
+    // get prev array item
     var c = game[game.currentCategory][--game.counts[game.currentCategory] % game[game.currentCategory].length] ;
   }
+  // load new sprite as texture
   game.slot[game.currentCategory].loadTexture(c,0,false);
-  game.fxselect.play();
 }
 function clickSelect() {
-  game.fxblip.play();
+  game.fxselect.play();
   game.t = game.categories[++game.count % game.categories.length] ;
   game.currentCategory = game.t;
   game.text.setText(game.t.toUpperCase());
 }
 
+// change background color
 function changeBg() {
   game.fxcolor.play();
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
 
+function clickSave() {
+  var canvas = document.getElementsByTagName("canvas")[0];
+  var image = canvas.toDataURL("image/png");
+  // hacky workaround for lack of filename=avatar.png support via header
+  $('<a href="data:'+image+'" download="avatar.png">')[0].click();
+}
+
+// randomize all parts
 function randomAll() {
+  game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
   game.fxrandom.play();
-  game.categories = ['face','hair','beard','eyes','mouth','shirt'];
   var rand = 0;
   for (var prop in game.categories) {
     var c = game.categories[prop];
@@ -218,6 +323,9 @@ function randomAll() {
     game.slot[c].loadTexture(rand,0,false);
   }
 }
+
+
+</script>
 
 
 
