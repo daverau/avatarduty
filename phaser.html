@@ -286,10 +286,12 @@ function clickSave() {
   var delay=100;
   setTimeout(function(){
       var canvas = document.getElementsByTagName("canvas")[0];
+      console.log(canvas);
       var image = canvas.toDataURL("image/png");
+      console.log(image);
       // hacky workaround for lack of filename=avatar.png support via header
       $('<a href="data:'+image+'" download="avatar.png">')[0].click();
-  },delay); 
+  },delay);
 
   var delay=200;
   setTimeout(function(){
@@ -298,7 +300,7 @@ function clickSave() {
     game.buttonL.alpha = 1;
     game.buttonR.alpha = 1;
     game.text.alpha = 1;
-  },delay); 
+  },delay);
 
 }
 
