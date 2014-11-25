@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Avatar Maker</title>
 <script src="js/phaser.min.js"></script>
+<script src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 <style>
@@ -46,6 +47,7 @@ function preload() {
   game.load.image('larrow', 'ui/arrow-l.svg', 25, 25);
   game.load.image('rarrow', 'ui/arrow-r.svg', 25, 25);
   game.load.image('clear', 'ui/blank.png', 25, 25);
+  game.load.image('savebutton', 'ui/save.svg', 72, 42);
 
   // parts
   // male
@@ -197,6 +199,10 @@ function create() {
 
   game.stage.backgroundColor = '#8ACBFD';
 
+  // save
+  var saveButton = game.add.button(238, 268, 'savebutton', clickSave, this, 1, 1, 1);
+  //saveButton.scale.set(.25, .25);
+
   // left arrow
   var buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
   buttonL.scale.set(.25, .25);
@@ -255,10 +261,11 @@ function changeBg() {
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
 
-function saveAvatar() {
-  var canvas = document.getElementById("game");
-  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
-  window.location.href = image;
+function clickSave() {
+  var canvas = document.getElementsByTagName("canvas")[0];
+  var image = canvas.toDataURL("image/png");
+  // hacky workaround for lack of filename=avatar.png support via header
+  $('<a href="data:'+image+'" download="avatar.png">')[0].click();
 }
 
 // randomize all parts
@@ -280,10 +287,10 @@ function randomAll() {
 
 <script>
 // resize canvas for higher pixel density screens (retina etc)
-var canvas = document.getElementById('game');
-canvas.width *= window.devicePixelRatio;
-canvas.height *= window.devicePixelRatio;
-canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
+//var canvas = document.getElementById('game');
+//canvas.width *= window.devicePixelRatio;
+//canvas.height *= window.devicePixelRatio;
+//canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
 </script>
 
 </body>
