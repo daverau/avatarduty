@@ -255,6 +255,12 @@ function changeBg() {
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
 
+function saveAvatar() {
+  var canvas = document.getElementById("game");
+  var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
+  window.location.href = image;
+}
+
 // randomize all parts
 function randomAll() {
   game.fxrandom.play();
@@ -271,6 +277,13 @@ function randomAll() {
 };</script>
 
 <div id="game"></div>
+
+<script>
+var canvas = document.getElementById('game');
+canvas.width *= window.devicePixelRatio;
+canvas.height *= window.devicePixelRatio;
+canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
+</script>
 
 </body>
 </html>
