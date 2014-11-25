@@ -57,6 +57,7 @@ function preload() {
 
   // ui
   game.load.image('hex', 'ui/hex.svg', avatar.size, avatar.size);
+  game.load.image('header', 'ui/header.svg', avatar.size, 42);
   game.load.image('larrow', 'ui/arrow-l.svg', 25, 25);
   game.load.image('rarrow', 'ui/arrow-r.svg', 25, 25);
   game.load.image('clear', 'ui/blank.png', 25, 25);
@@ -200,6 +201,7 @@ function create() {
   game.currentCategory = game.categories[0];
 
   game.add.sprite(0, 0, 'hex');
+  game.header = game.add.sprite(0, 0, 'header');
 
   game.fxding = game.add.audio('ding');
   game.fxblip = game.add.audio('blip');
@@ -210,20 +212,19 @@ function create() {
   game.stage.backgroundColor = '#8ACBFD';
 
   // save
-  var saveButton = game.add.button(238, 268, 'savebutton', clickSave, this, 1, 1, 1);
-  //saveButton.scale.set(.25, .25);
+  game.saveButton = game.add.button(238, 268, 'savebutton', clickSave, this, 1, 1, 1);
 
   // left arrow
-  var buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
-  buttonL.scale.set(.25, .25);
+  game.buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
+  game.buttonL.scale.set(.25, .25);
 
   // right arrow
-  var buttonR = game.add.button(246, 150, 'rarrow', clickArrow, this, 1, 1, 1);
-  buttonR.scale.set(.25, .25);
+  game.buttonR = game.add.button(246, 150, 'rarrow', clickArrow, this, 1, 1, 1);
+  game.buttonR.scale.set(.25, .25);
 
   // button label
-  var selectLabel = game.add.button(100, 266, 'clear', clickSelect, this, 1, 1, 1);
-  selectLabel.scale.set(.25, .25);
+  game.selectLabel = game.add.button(100, 266, 'clear', clickSelect, this, 1, 1, 1);
+  game.selectLabel.scale.set(.25, .25);
 
   // show select button and text
   game.text = game.add.text(game.world.centerX, 294, game.currentCategory.toUpperCase(), {
@@ -272,10 +273,30 @@ function changeBg() {
 }
 
 function clickSave() {
-  var canvas = document.getElementsByTagName("canvas")[0];
-  var image = canvas.toDataURL("image/png");
-  // hacky workaround for lack of filename=avatar.png support via header
-  $('<a href="data:'+image+'" download="avatar.png">')[0].click();
+  // hide ui
+  this.game.header.alpha = 0;
+  this.game.saveButton.alpha = 0;
+  this.game.buttonL.alpha = 0;
+  this.game.buttonR.alpha = 0;
+  this.game.text.alpha = 0;
+
+  var delay=100;
+  setTimeout(function(){
+      var canvas = document.getElementsByTagName("canvas")[0];
+      var image = canvas.toDataURL("image/png");
+      // hacky workaround for lack of filename=avatar.png support via header
+      $('<a href="data:'+image+'" download="avatar.png">')[0].click();
+  },delay); 
+
+  var delay=200;
+  setTimeout(function(){
+    game.header.alpha = 1;
+    game.saveButton.alpha = 1;
+    game.buttonL.alpha = 1;
+    game.buttonR.alpha = 1;
+    game.text.alpha = 1;
+  },delay); 
+
 }
 
 // randomize all parts
