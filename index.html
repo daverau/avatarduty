@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <title>Avatar Maker</title>
-<script src="js/phaser.min.js"></script>
 </head>
 <body>
 <style>
@@ -13,29 +12,60 @@ body, html {
   height: 100%;
   background: #475C77;
 }
-#game {
+#maker {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
-canvas {
   margin: 0 auto;
+  width: 320px;
+  height: 320px;
+  background: url('ui/hex.svg') no-repeat;
+  display: flex;
+}
+#larrow, #rarrow {
+  background: url('ui/arrow-l.svg') no-repeat;
+  background-size: 80% auto;
+  width: 35px;
+  height: 35px;
+  padding: 20px;
+  outline: none;
+  border: 0;
+  position: relative;
+}
+button:active {
+  opacity: .8;
+}
+#rarrow {
+  background: url('ui/arrow-r.svg') no-repeat;
+  background-size: 80% auto;
 }
 </style>
-<script type="text/javascript">window.onload = function() {
 
-// size of canvas/base graphics
-var size = 320;
-var game = new Phaser.Game(size, size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
+<div id="maker">
+  <button id="larrow"></button>
+  <button id="rarrow"></button>
+  <canvas id="avatar"></canvas>
+</div>
+
+<script type="text/javascript">
+
+// audio setup
+var audio = {};
+  audio.ding = new Audio('sfx/ding.wav');
+  audio.blip = new Audio('sfx/blip.wav');
+  audio.select = new Audio('sfx/select.wav');
+  audio.random = new Audio('sfx/random.wav');
+  audio.color = new Audio('sfx/color.wav');
+  //audio.color.play();
+
+document.getElementById('larrow').onclick = function(e){
+  audio.blip.play();
+};
+document.getElementById('rarrow').onclick = function(e){
+  audio.blip.play();
+};
 
 function preload() {
-
-  // sound
-  game.load.audio('ding', 'sfx/ding.wav');
-  game.load.audio('blip', 'sfx/blip.wav');
-  game.load.audio('select', 'sfx/select.wav');
-  game.load.audio('random', 'sfx/random.wav');
-  game.load.audio('color', 'sfx/color.wav');
 
   // ui
   game.load.image('hex', 'ui/hex.svg', size, size);
@@ -72,6 +102,7 @@ function preload() {
   game.load.image('hair3', 'ui/parts_hair-16.svg', size, size);
   game.load.image('hair4', 'ui/parts_hair-17.svg', size, size);
   game.load.image('hair5', 'ui/parts_hair-18.svg', size, size);
+  game.load.image('hair6', 'ui/parts_hair-38.svg', size, size);
 
   game.load.image('shirt1', 'ui/parts_shirt-19.svg', size, size);
   game.load.image('shirt2', 'ui/parts_shirt-20.svg', size, size);
@@ -123,7 +154,7 @@ function create() {
 
   game.categories = ['face','hair','beard','eyes','mouth','shirt'];
   game.face = ['faces1', 'faces2', 'faces3'];
-  game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5'];
+  game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5', 'hair6'];
   game.beard = ['beard1', 'beard2', 'beard3', 'beard4', 'beard5', 'beard6', 'beard7', 'beard8', 'beard9', 'beard10'];
   game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11', 'shirt12'];
   game.eyes = ['eyes1', 'eyes2', 'eyes3'];
@@ -171,9 +202,6 @@ function clickSelect() {
   game.text.setText(game.t.toUpperCase());
 }
 
-function update() {
-}
-
 function changeBg() {
   game.fxcolor.play();
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
@@ -188,15 +216,12 @@ function randomAll() {
     rand = game[c][Math.floor(Math.random() * game[c].length)];
     game.slot[c].loadTexture(rand,0,false);
   }
-
-
 }
 
 
 
-};</script>
+</script>
 
-<div id="game"></div>
 
 </body>
 </html>
