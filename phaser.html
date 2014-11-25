@@ -47,7 +47,6 @@ function preload() {
   // canvas.height *= window.devicePixelRatio;
   // canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
 
-
   // sound
   game.load.audio('ding', 'sfx/ding.wav');
   game.load.audio('blip', 'sfx/blip.wav');
@@ -285,12 +284,15 @@ function clickSave() {
 
   var delay=100;
   setTimeout(function(){
-      var canvas = document.getElementsByTagName("canvas")[0];
-      console.log(canvas);
-      var image = canvas.toDataURL("image/png");
-      console.log(image);
-      // hacky workaround for lack of filename=avatar.png support via header
-      $('<a href="data:'+image+'" download="avatar.png">')[0].click();
+    var canvas = document.getElementsByTagName("canvas")[0];
+    var data = canvas.toDataURL("image/png");
+    var img = document.createElement('img');
+    img.src = data;
+    var a = document.createElement('a');
+    a.setAttribute("download", "avatar.png");
+    a.setAttribute("href", data);
+    a.appendChild(img);
+    a.click();
   },delay);
 
   var delay=200;
