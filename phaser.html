@@ -2,19 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-
-<meta name="format-detection" content="telephone=no">
-<meta name="HandheldFriendly" content="true" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="format-detection" content="telephone=no">
-<meta name="HandheldFriendly" content="true" />
-<meta name="robots" content="noindex,nofollow" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="apple-mobile-web-app-title" content="Phaser App">
-<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
-
 <title>AvatarDuty</title>
 <script src="js/phaser.min.js"></script>
 <script src="js/jquery-2.1.1.min.js"></script>
@@ -41,7 +28,12 @@ canvas {
 // global var for settings
 var avatar = {};
 avatar.size = 320; // size of canvas/base graphics
-avatar.gender = 'female'; // sets base graphics
+
+//avatar.gender = 'female'; // sets base graphics
+// random male/female
+var items = ['male','female'];
+avatar.gender = items[Math.floor(Math.random()*items.length)];
+
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
@@ -49,7 +41,7 @@ function preload() {
 
   // retina resize not working as expected...
   // http://www.html5gamedevs.com/topic/543-retina-displays-question/
-  
+
   // var canvas = document.getElementsByTagName('canvas')[0];
   // canvas.width *= window.devicePixelRatio;
   // canvas.height *= window.devicePixelRatio;
@@ -127,6 +119,7 @@ function preload() {
 
     game.load.image('eyes1', 'ui/female_eyes-04.svg', avatar.size, avatar.size);
     game.load.image('eyes2', 'ui/female_eyes-05.svg', avatar.size, avatar.size);
+    game.load.image('eyes3', 'ui/female_eyes-26.svg', avatar.size, avatar.size);
 
     game.load.image('mouth1', 'ui/female_mouth-25.svg', avatar.size, avatar.size);
     game.load.image('mouth2', 'ui/female_mouth-07.svg', avatar.size, avatar.size);
@@ -187,7 +180,7 @@ function create() {
     game.face = ['faces1', 'faces2', 'faces3'];
     game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5'];
     game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11'];
-    game.eyes = ['eyes1', 'eyes2'];
+    game.eyes = ['eyes1', 'eyes2', 'eyes3'];
     game.mouth = ['mouth1', 'mouth2', 'mouth3', 'mouth4'];
   }
   
