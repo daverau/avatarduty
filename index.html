@@ -51,13 +51,14 @@ button:active {
 
 // audio setup
 var audio = {};
-  audio.ding = new Audio('sfx/ding.wav');
-  audio.blip = new Audio('sfx/blip.wav');
-  audio.select = new Audio('sfx/select.wav');
-  audio.random = new Audio('sfx/random.wav');
-  audio.color = new Audio('sfx/color.wav');
-  //audio.color.play();
+    audio.ding = new Audio('sfx/ding.wav');
+    audio.blip = new Audio('sfx/blip.wav');
+    audio.select = new Audio('sfx/select.wav');
+    audio.random = new Audio('sfx/random.wav');
+    audio.color = new Audio('sfx/color.wav');
+    //audio.color.play();
 
+// arrow clicks
 document.getElementById('larrow').onclick = function(e){
   audio.blip.play();
 };

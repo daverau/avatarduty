@@ -2,7 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<meta name="format-detection" content="telephone=no">
+<meta name="HandheldFriendly" content="true" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="HandheldFriendly" content="true" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="Phaser App">
+<meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
+
 <title>Avatar Maker</title>
 <script src="js/phaser.min.js"></script>
 <script src="js/jquery-2.1.1.min.js"></script>
@@ -34,6 +46,13 @@ avatar.gender = 'male'; // sets base graphics
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
 function preload() {
+
+  var canvas = document.getElementsByTagName('canvas')[0];
+  console.log(canvas);
+  canvas.width *= window.devicePixelRatio;
+  canvas.height *= window.devicePixelRatio;
+  canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
+
 
   // sound
   game.load.audio('ding', 'sfx/ding.wav');
@@ -270,6 +289,7 @@ function clickSave() {
 
 // randomize all parts
 function randomAll() {
+  game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
   game.fxrandom.play();
   var rand = 0;
   for (var prop in game.categories) {
@@ -280,18 +300,9 @@ function randomAll() {
 }
 
 
-
 };</script>
 
 <div id="game"></div>
-
-<script>
-// resize canvas for higher pixel density screens (retina etc)
-//var canvas = document.getElementById('game');
-//canvas.width *= window.devicePixelRatio;
-//canvas.height *= window.devicePixelRatio;
-//canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
-</script>
 
 </body>
 </html>
