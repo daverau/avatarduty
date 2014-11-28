@@ -1,0 +1,31 @@
+[Todo]
+  Scene switch between M/F
+  Cycle hair + face colors
+  Title screen/instructions/credits
+  Crop screen shot
+
+[Animate]
+  Tween interface
+  Hide/show on save
+  Face/happy lines on save
+
+[New Artwork]
+  Accessories
+    Hats
+    Headphones
+
+[New Backgrounds]
+  Artwork/painting hanging on wall
+  Bookshelf
+  Bike
+  Locations
+    SF
+      Bridge
+      Deloris park
+      Giants game
+      Muni
+    Toronto
+      Snow
+      Maple leaf/flag
+    Work
+      Green wall/pd sign
