@@ -253,14 +253,21 @@ function create() {
 function clickArrow(button) {
   game.fxblip.play();
   if (button.key == 'rarrow') {
-    // get next array item
-    var c = game[game.currentCategory][++game.counts[game.currentCategory] % game[game.currentCategory].length] ;
+    // if face
+    if (game.currentCategory == 'face') {
+      game.slot.face.tint = game.slot.colors.face[++game.count % game.slot.colors.face.length];
+    } else {
+      var c = game[game.currentCategory][++game.counts[game.currentCategory] % game[game.currentCategory].length];
+      game.slot[game.currentCategory].loadTexture(c,0,false);
+    }
   } else {
-    // get prev array item
-    var c = game[game.currentCategory][--game.counts[game.currentCategory] % game[game.currentCategory].length] ;
+    if (game.currentCategory == 'face') {
+      game.slot.face.tint = game.slot.colors.face[--game.count % game.slot.colors.face.length];
+    } else {
+      var c = game[game.currentCategory][--game.counts[game.currentCategory] % game[game.currentCategory].length];
+      game.slot[game.currentCategory].loadTexture(c,0,false);
+    }
   }
-  // load new sprite as texture
-  game.slot[game.currentCategory].loadTexture(c,0,false);
 }
 function clickSelect() {
   game.fxselect.play();
