@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <title>AvatarDuty</title>
 <script src="js/phaser.min.js"></script>
-<script src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 <style>
@@ -163,7 +162,10 @@ function create() {
   game.slot.mouth = game.add.sprite(55, 45, 'mouth1');
   game.slot.hair = game.add.sprite(55, 45, 'hair1');
   game.slot.shirt = game.add.sprite(55, 45, 'shirt1');
-  game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
+
+  game.slot.colors = {};
+  game.slot.colors.face = ['0xFFD1AE','0xE6A67C','0xAB7F61','0x743F22'];
+  game.slot.colors.hair = ['0xE05713','0xE1A422','0x3A302B','0x9B9898'];
 
   if (avatar.gender == 'male') {
     game.face = ['faces1', 'faces2', 'faces3'];
@@ -183,7 +185,10 @@ function create() {
     game.eyes = ['eyes1', 'eyes2', 'eyes3'];
     game.mouth = ['mouth1', 'mouth2', 'mouth3', 'mouth4'];
   }
-  
+
+  // put eyes/glasses over beards
+  game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
+
 
   // keep track of current array pointer counts
   // this is messy/lame and could be replaced with a proper loop
@@ -306,6 +311,20 @@ function clickSave() {
 
 }
 
+function randomHairColor() {
+  var rc = game.slot.colors.hair[Math.floor(Math.random() * game.slot.colors.hair.length)];
+  game.slot.hair.tint = rc;
+  if (game.beard) {
+    game.slot.beard.tint = rc;
+  }
+}
+function randomBgColor() {
+  game.stage.backgroundColor = game.colors[Math.floor(Math.random() * game.colors.length)];
+}
+function randomFaceColor() {
+  game.slot.face.tint = game.slot.colors.face[++game.count % game.slot.colors.face.length];
+}
+
 // randomize all parts
 function randomAll() {
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
@@ -313,8 +332,14 @@ function randomAll() {
   var rand = 0;
   for (var prop in game.categories) {
     var c = game.categories[prop];
-    rand = game[c][Math.floor(Math.random() * game[c].length)];
-    game.slot[c].loadTexture(rand,0,false);
+    if (c == 'background') {
+      randomBgColor();
+    } else if (c == 'face')  {
+      randomFaceColor();
+    } else {
+      rand = game[c][Math.floor(Math.random() * game[c].length)];
+      game.slot[c].loadTexture(rand,0,false);
+    }
   }
 }
 
