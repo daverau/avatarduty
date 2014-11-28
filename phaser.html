@@ -327,9 +327,9 @@ function randomFaceColor() {
 
 // randomize all parts
 function randomAll() {
-  game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
   game.fxrandom.play();
   var rand = 0;
+  randomHairColor();
   for (var prop in game.categories) {
     var c = game.categories[prop];
     if (c == 'background') {
