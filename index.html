@@ -24,17 +24,17 @@ canvas {
 </style>
 <script type="text/javascript">window.onload = function() {
 
+// AvatarDuty v1.0 by Dave Rau
+// Make a game-inspired avatar like this: https://www.youtube.com/watch?v=xs4DqkZxu4k
+
 // global var for settings
 var avatar = {};
 avatar.size = 320; // size of canvas/base graphics
-
 // random male/female
 var items = ['m','f'];
 avatar.gender = items[Math.floor(Math.random()*items.length)];
-
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
-
 
 // load assets
 function preload() {
