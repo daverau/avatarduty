@@ -296,7 +296,7 @@ function clickCenter(button) {
   if (c == 'hair' || c == 'beard') {
     cycleHairColor();
   } else {
-    changeBg();
+    cycleBg();
   }
 }
 
@@ -335,7 +335,7 @@ function update() {
 
 
 // change background color
-function changeBg() {
+function cycleBg() {
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
 
@@ -359,6 +359,9 @@ function clickSave() {
   game.toggle.alpha = 0;
   game.dice.alpha = 0;
 
+  // after ui is hidden save canvas to dataurl
+  // create img
+  // click download
   var delay=100;
   setTimeout(function(){
     var canvas = document.getElementsByTagName("canvas")[0];
@@ -372,6 +375,8 @@ function clickSave() {
     a.click();
   },delay);
 
+  // after save is done show the ui again
+  // hacky, but it works
   var delay=200;
   setTimeout(function(){
     game.header.alpha = 1;
