@@ -1,6 +1,5 @@
 [Todo]
   Scene switch between M/F
-  Cycle hair + face colors
   Title screen/instructions/credits
   Crop screen shot
 
