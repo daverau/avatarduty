@@ -28,20 +28,18 @@ canvas {
 var avatar = {};
 avatar.size = 320; // size of canvas/base graphics
 
-//avatar.gender = 'female'; // sets base graphics
 // random male/female
 var items = ['male','female'];
 avatar.gender = items[Math.floor(Math.random()*items.length)];
-//avatar.gender = 'male';
 
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
+
 
 function preload() {
 
   // retina resize not working as expected...
   // http://www.html5gamedevs.com/topic/543-retina-displays-question/
-
   // var canvas = document.getElementsByTagName('canvas')[0];
   // canvas.width *= window.devicePixelRatio;
   // canvas.height *= window.devicePixelRatio;
@@ -139,7 +137,9 @@ function preload() {
     game.load.image('shirt9', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
   }
 
+
 } // end preloading
+
 
 function create() {
 
@@ -245,23 +245,23 @@ function create() {
   avatar.key1 = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
   avatar.key1.onDown.add(randomAll, this);
 
+  // rnd
+  randomFaceColor();
+  randomHairColor();
+
 } // end create()
+
 
 function clickCenter(button) {
   var c = game.currentCategory;
-  console.log('click center');
-  console.log(c);
+  game.fxcolor.play();
   if (c == 'hair' || c == 'beard') {
-    //randomHairColor();
-    var color = game.slot.colors.hair[++game.count % game.slot.colors.hair.length];
-    game.slot.hair.tint = color;
-    if (game.slot.beard) {
-      game.slot.beard.tint = color;
-    }
+    cycleHairColor();
   } else {
     changeBg();
   }
 }
+
 
 function clickArrow(button) {
   game.fxblip.play();
@@ -282,6 +282,8 @@ function clickArrow(button) {
     }
   }
 }
+
+
 function clickSelect() {
   game.fxselect.play();
   game.t = game.categories[++game.count % game.categories.length] ;
@@ -289,14 +291,25 @@ function clickSelect() {
   game.text.setText(game.t.toUpperCase());
 }
 
+
 function update() {
 } // end update()
 
+
 // change background color
 function changeBg() {
-  game.fxcolor.play();
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
+
+
+function cycleHairColor() {
+  var color = game.slot.colors.hair[++game.count % game.slot.colors.hair.length];
+  game.slot.hair.tint = color;
+  if (game.slot.beard) {
+    game.slot.beard.tint = color;
+  }
+}
+
 
 function clickSave() {
   // hide ui
@@ -327,8 +340,8 @@ function clickSave() {
     game.buttonR.alpha = 1;
     game.text.alpha = 1;
   },delay);
-
 }
+
 
 function randomHairColor() {
   var rc = game.slot.colors.hair[Math.floor(Math.random() * game.slot.colors.hair.length)];
@@ -337,13 +350,18 @@ function randomHairColor() {
     game.slot.beard.tint = rc;
   }
 }
+
+
 function randomBgColor() {
   game.stage.backgroundColor = game.colors[Math.floor(Math.random() * game.colors.length)];
 }
+
+
 function randomFaceColor() {
   var rc = game.slot.colors.face[Math.floor(Math.random() * game.slot.colors.face.length)];
   game.slot.face.tint = rc;
 }
+
 
 // randomize all parts
 function randomAll() {
