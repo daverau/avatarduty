@@ -12,15 +12,15 @@ body, html {
   margin: 0;
   height: 100%;
   background: #475C77;
-}
+  }
 #game {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
+  }
 canvas {
   margin: 0 auto;
-}
+  }
 </style>
 <script type="text/javascript">window.onload = function() {
 
@@ -36,14 +36,8 @@ avatar.gender = items[Math.floor(Math.random()*items.length)];
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
 
+// load assets
 function preload() {
-
-  // retina resize not working as expected...
-  // http://www.html5gamedevs.com/topic/543-retina-displays-question/
-  // var canvas = document.getElementsByTagName('canvas')[0];
-  // canvas.width *= window.devicePixelRatio;
-  // canvas.height *= window.devicePixelRatio;
-  // canvas.getContext("2d").scale(window.devicePixelRatio, window.devicePixelRatio);
 
   // sound
   game.load.audio('ding', 'sfx/ding.wav');
@@ -136,7 +130,6 @@ function preload() {
   game.load.image('f-shirt7', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
   game.load.image('f-shirt8', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
   game.load.image('f-shirt9', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
-
 
 } // end preloading
 
@@ -241,15 +234,10 @@ function create() {
 } // end create()
 
 
-function toggleGender() {
-  game.fxgender.play();
-  if (avatar.gender == 'f') {
-    avatar.gender = 'm';
-  } else {
-    avatar.gender = 'f';
-  }
-  setMaleFemale();
-}
+function update() {
+  // phaser game update code would normally go here, but since this isn't really a game...
+} // end update()
+
 
 function setMaleFemale() {
   if (avatar.gender == 'f') { // hey ladies
@@ -272,7 +260,6 @@ function setMaleFemale() {
   }
 
   resetSlots();
-
 }
 
 function resetSlots() {
@@ -330,8 +317,15 @@ function clickSelect() {
 }
 
 
-function update() {
-} // end update()
+function toggleGender() {
+  game.fxgender.play();
+  if (avatar.gender == 'f') {
+    avatar.gender = 'm';
+  } else {
+    avatar.gender = 'f';
+  }
+  setMaleFemale();
+}
 
 
 // change background color
