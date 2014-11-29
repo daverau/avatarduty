@@ -259,10 +259,7 @@ function setMaleFemale() {
     game.mouth = ['m-mouth1', 'm-mouth2', 'm-mouth3'];
   }
 
-  resetSlots();
-}
-
-function resetSlots() {
+  // reset slots
   game.slot.face.loadTexture(avatar.gender+'-face1',0,false);
   game.slot.mouth.loadTexture(avatar.gender+'-mouth1',0,false);
   game.slot.beard.loadTexture('m-beard1',0,false);
@@ -276,6 +273,7 @@ function resetSlots() {
     game.slot.beard.alpha = 1; // show beard
   }
 }
+
 
 function clickCenter(button) {
   var c = game.currentCategory;
