@@ -32,7 +32,7 @@ avatar.size = 320; // size of canvas/base graphics
 // random male/female
 var items = ['male','female'];
 avatar.gender = items[Math.floor(Math.random()*items.length)];
-avatar.gender = 'female';
+avatar.gender = 'male';
 
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
@@ -65,63 +65,61 @@ function preload() {
   // parts
   // male
   if (avatar.gender == 'male') {
-    game.load.image('faces1', 'ui/male_faces-01.svg', avatar.size, avatar.size);
-    game.load.image('faces2', 'ui/male_faces-02.svg', avatar.size, avatar.size);
-    game.load.image('faces3', 'ui/male_faces-03.svg', avatar.size, avatar.size);
+    game.load.image('faces1', 'ui/male_faces.svg', avatar.size, avatar.size);
 
-    game.load.image('eyes1', 'ui/male_eyes-04.svg', avatar.size, avatar.size);
-    game.load.image('eyes2', 'ui/male_eyes-05.svg', avatar.size, avatar.size);
-    game.load.image('eyes3', 'ui/male_eyes-36.svg', avatar.size, avatar.size);
+    game.load.image('eyes1', 'ui/male_eyes-02.svg', avatar.size, avatar.size);
+    game.load.image('eyes2', 'ui/male_eyes-03.svg', avatar.size, avatar.size);
+    game.load.image('eyes3', 'ui/male_eyes-34.svg', avatar.size, avatar.size);
 
-    game.load.image('mouth1', 'ui/male_mouth-06.svg', avatar.size, avatar.size);
-    game.load.image('mouth2', 'ui/male_mouth-07.svg', avatar.size, avatar.size);
-    game.load.image('mouth3', 'ui/male_mouth-08.svg', avatar.size, avatar.size);
+    game.load.image('mouth1', 'ui/male_mouth-04.svg', avatar.size, avatar.size);
+    game.load.image('mouth2', 'ui/male_mouth-05.svg', avatar.size, avatar.size);
+    game.load.image('mouth3', 'ui/male_mouth-06.svg', avatar.size, avatar.size);
 
-    game.load.image('beard1', 'ui/male_beard-09.svg', avatar.size, avatar.size);
-    game.load.image('beard2', 'ui/male_beard-10.svg', avatar.size, avatar.size);
-    game.load.image('beard3', 'ui/male_beard-11.svg', avatar.size, avatar.size);
-    game.load.image('beard4', 'ui/male_beard-12.svg', avatar.size, avatar.size);
-    game.load.image('beard5', 'ui/male_beard-13.svg', avatar.size, avatar.size);
-    game.load.image('beard6', 'ui/male_beard-30.svg', avatar.size, avatar.size);
-    game.load.image('beard7', 'ui/male_beard-31.svg', avatar.size, avatar.size);
-    game.load.image('beard8', 'ui/male_beard-32.svg', avatar.size, avatar.size);
-    game.load.image('beard9', 'ui/male_beard-33.svg', avatar.size, avatar.size);
-    game.load.image('beard10', 'ui/male_beard-34.svg', avatar.size, avatar.size);
-    game.load.image('beard11', 'ui/male_beard-39.svg', avatar.size, avatar.size);
+    game.load.image('beard1', 'ui/male_beard-07.svg', avatar.size, avatar.size);
+    game.load.image('beard2', 'ui/male_beard-08.svg', avatar.size, avatar.size);
+    game.load.image('beard3', 'ui/male_beard-09.svg', avatar.size, avatar.size);
+    game.load.image('beard4', 'ui/male_beard-10.svg', avatar.size, avatar.size);
+    game.load.image('beard5', 'ui/male_beard-11.svg', avatar.size, avatar.size);
+    game.load.image('beard6', 'ui/male_beard-28.svg', avatar.size, avatar.size);
+    game.load.image('beard7', 'ui/male_beard-29.svg', avatar.size, avatar.size);
+    game.load.image('beard8', 'ui/male_beard-30.svg', avatar.size, avatar.size);
+    game.load.image('beard9', 'ui/male_beard-31.svg', avatar.size, avatar.size);
+    game.load.image('beard10', 'ui/male_beard-32.svg', avatar.size, avatar.size);
+    game.load.image('beard11', 'ui/male_beard-37.svg', avatar.size, avatar.size);
 
-    game.load.image('hair1', 'ui/male_hair-14.svg', avatar.size, avatar.size);
-    game.load.image('hair2', 'ui/male_hair-15.svg', avatar.size, avatar.size);
-    game.load.image('hair3', 'ui/male_hair-16.svg', avatar.size, avatar.size);
-    game.load.image('hair4', 'ui/male_hair-17.svg', avatar.size, avatar.size);
-    game.load.image('hair5', 'ui/male_hair-18.svg', avatar.size, avatar.size);
-    game.load.image('hair6', 'ui/male_hair-38.svg', avatar.size, avatar.size);
+    game.load.image('hair1', 'ui/male_hair-12.svg', avatar.size, avatar.size);
+    game.load.image('hair2', 'ui/male_hair-13.svg', avatar.size, avatar.size);
+    game.load.image('hair3', 'ui/male_hair-14.svg', avatar.size, avatar.size);
+    game.load.image('hair4', 'ui/male_hair-15.svg', avatar.size, avatar.size);
+    game.load.image('hair5', 'ui/male_hair-16.svg', avatar.size, avatar.size);
+    game.load.image('hair6', 'ui/male_hair-36.svg', avatar.size, avatar.size);
 
-    game.load.image('shirt1', 'ui/male_shirt-19.svg', avatar.size, avatar.size);
-    game.load.image('shirt2', 'ui/male_shirt-20.svg', avatar.size, avatar.size);
-    game.load.image('shirt3', 'ui/male_shirt-21.svg', avatar.size, avatar.size);
-    game.load.image('shirt4', 'ui/male_shirt-22.svg', avatar.size, avatar.size);
-    game.load.image('shirt5', 'ui/male_shirt-23.svg', avatar.size, avatar.size);
-    game.load.image('shirt6', 'ui/male_shirt-24.svg', avatar.size, avatar.size);
-    game.load.image('shirt7', 'ui/male_shirt-25.svg', avatar.size, avatar.size);
-    game.load.image('shirt8', 'ui/male_shirt-26.svg', avatar.size, avatar.size);
-    game.load.image('shirt9', 'ui/male_shirt-27.svg', avatar.size, avatar.size);
-    game.load.image('shirt10', 'ui/male_shirt-28.svg', avatar.size, avatar.size);
-    game.load.image('shirt11', 'ui/male_shirt-29.svg', avatar.size, avatar.size);
-    game.load.image('shirt12', 'ui/male_shirt-35.svg', avatar.size, avatar.size);
-    game.load.image('shirt13', 'ui/male_shirt-37.svg', avatar.size, avatar.size);
+    game.load.image('shirt1', 'ui/male_shirt-17.svg', avatar.size, avatar.size);
+    game.load.image('shirt2', 'ui/male_shirt-18.svg', avatar.size, avatar.size);
+    game.load.image('shirt3', 'ui/male_shirt-19.svg', avatar.size, avatar.size);
+    game.load.image('shirt4', 'ui/male_shirt-20.svg', avatar.size, avatar.size);
+    game.load.image('shirt5', 'ui/male_shirt-21.svg', avatar.size, avatar.size);
+    game.load.image('shirt6', 'ui/male_shirt-22.svg', avatar.size, avatar.size);
+    game.load.image('shirt7', 'ui/male_shirt-23.svg', avatar.size, avatar.size);
+    game.load.image('shirt8', 'ui/male_shirt-24.svg', avatar.size, avatar.size);
+    game.load.image('shirt9', 'ui/male_shirt-25.svg', avatar.size, avatar.size);
+    game.load.image('shirt10', 'ui/male_shirt-26.svg', avatar.size, avatar.size);
+    game.load.image('shirt11', 'ui/male_shirt-27.svg', avatar.size, avatar.size);
+    game.load.image('shirt12', 'ui/male_shirt-33.svg', avatar.size, avatar.size);
+    game.load.image('shirt13', 'ui/male_shirt-35.svg', avatar.size, avatar.size);
   }
 
   // female
   if (avatar.gender == 'female') {
     game.load.image('faces1', 'ui/female_faces-01.svg', avatar.size, avatar.size);
 
-    game.load.image('eyes1', 'ui/female_eyes-04.svg', avatar.size, avatar.size);
-    game.load.image('eyes2', 'ui/female_eyes-05.svg', avatar.size, avatar.size);
-    game.load.image('eyes3', 'ui/female_eyes-26.svg', avatar.size, avatar.size);
+    game.load.image('eyes1', 'ui/female_eyes-02.svg', avatar.size, avatar.size);
+    game.load.image('eyes2', 'ui/female_eyes-03.svg', avatar.size, avatar.size);
+    game.load.image('eyes3', 'ui/female_eyes-24.svg', avatar.size, avatar.size);
 
-    game.load.image('mouth1', 'ui/female_mouth-25.svg', avatar.size, avatar.size);
-    game.load.image('mouth2', 'ui/female_mouth-07.svg', avatar.size, avatar.size);
-    game.load.image('mouth3', 'ui/female_mouth-08.svg', avatar.size, avatar.size);
+    game.load.image('mouth1', 'ui/female_mouth-23.svg', avatar.size, avatar.size);
+    game.load.image('mouth2', 'ui/female_mouth-04.svg', avatar.size, avatar.size);
+    game.load.image('mouth3', 'ui/female_mouth-05.svg', avatar.size, avatar.size);
     game.load.image('mouth4', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
 
     game.load.image('hair1', 'ui/female_hair-09.svg', avatar.size, avatar.size);
@@ -139,8 +137,6 @@ function preload() {
     game.load.image('shirt7', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
     game.load.image('shirt8', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
     game.load.image('shirt9', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
-    game.load.image('shirt10', 'ui/female_shirt-23.svg', avatar.size, avatar.size);
-    game.load.image('shirt11', 'ui/female_shirt-24.svg', avatar.size, avatar.size);
   }
 
 } // end preloading
@@ -159,8 +155,6 @@ function create() {
   game.slot = {};
   game.slot.face = game.add.sprite(55, 45, 'faces1');
   game.slot.mouth = game.add.sprite(55, 45, 'mouth1');
-  game.slot.hair = game.add.sprite(55, 45, 'hair1');
-  game.slot.shirt = game.add.sprite(55, 45, 'shirt1');
 
   game.slot.colors = {};
   game.slot.colors.face = ['0xFFD1AE','0xE6A67C','0xAB7F61','0x743F22'];
@@ -180,12 +174,14 @@ function create() {
   if (avatar.gender == 'female') {
     game.face = ['faces1'];
     game.hair = ['hair1', 'hair2', 'hair3', 'hair4', 'hair5'];
-    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9', 'shirt10', 'shirt11'];
+    game.shirt = ['shirt1', 'shirt2', 'shirt3', 'shirt4', 'shirt5', 'shirt6', 'shirt7', 'shirt8', 'shirt9'];
     game.eyes = ['eyes1', 'eyes2', 'eyes3'];
     game.mouth = ['mouth1', 'mouth2', 'mouth3', 'mouth4'];
   }
 
-  // put eyes/glasses over beards
+  // layered on top of head/beard
+  game.slot.hair = game.add.sprite(55, 45, 'hair1');
+  game.slot.shirt = game.add.sprite(55, 45, 'shirt1');
   game.slot.eyes = game.add.sprite(55, 45, 'eyes1');
 
 
@@ -247,6 +243,9 @@ function create() {
 
   //avatar.key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
   //avatar.key1.onDown.add(randomAll(), this);
+
+
+
 
 } // end create()
 
@@ -334,8 +333,9 @@ function randomFaceColor() {
 
 // randomize all parts
 function randomAll() {
-  game.fxrandom.play();
   var rand = 0;
+  game.fxrandom.play();
+  randomBgColor();
   randomHairColor();
   for (var prop in game.categories) {
     var c = game.categories[prop];
