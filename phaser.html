@@ -32,7 +32,7 @@ avatar.size = 320; // size of canvas/base graphics
 // random male/female
 var items = ['male','female'];
 avatar.gender = items[Math.floor(Math.random()*items.length)];
-avatar.gender = 'male';
+//avatar.gender = 'male';
 
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
@@ -233,21 +233,35 @@ function create() {
   });
   game.text.anchor.setTo(0.5, 0.5);
 
-  // random bg button
+  // center button
   var buttonRand = game.add.button(100, 0, 'clear', randomAll, this, 1, 1, 1);
   buttonRand.scale.set(.25, .25);
 
   // random all button
-  var buttonRandAll = game.add.button(100, 150, 'clear', changeBg, this, 1, 1, 1);
+  var buttonRandAll = game.add.button(100, 150, 'clear', clickCenter, this, 1, 1, 1);
   buttonRandAll.scale.set(.25, .25);
 
-  //avatar.key1 = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-  //avatar.key1.onDown.add(randomAll(), this);
-
-
-
+  // spacebar quick random
+  avatar.key1 = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  avatar.key1.onDown.add(randomAll, this);
 
 } // end create()
+
+function clickCenter(button) {
+  var c = game.currentCategory;
+  console.log('click center');
+  console.log(c);
+  if (c == 'hair' || c == 'beard') {
+    //randomHairColor();
+    var color = game.slot.colors.hair[++game.count % game.slot.colors.hair.length];
+    game.slot.hair.tint = color;
+    if (game.slot.beard) {
+      game.slot.beard.tint = color;
+    }
+  } else {
+    changeBg();
+  }
+}
 
 function clickArrow(button) {
   game.fxblip.play();
