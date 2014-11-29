@@ -60,6 +60,7 @@ function preload() {
   game.load.image('rarrow', 'ui/arrow-r.svg', 25, 25);
   game.load.image('clear', 'ui/blank.png', 25, 25);
   game.load.image('savebutton', 'ui/save.svg', 72, 42);
+  game.load.spritesheet('dice', 'ui/ui_dice.svg', 27, 31);
   game.load.spritesheet('toggle', 'ui/ui_switch.svg', 27, 31);
 
   // parts
@@ -119,11 +120,12 @@ function preload() {
   game.load.image('f-mouth3', 'ui/female_mouth-05.svg', avatar.size, avatar.size);
   game.load.image('f-mouth4', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
 
-  game.load.image('f-hair1', 'ui/female_hair-09.svg', avatar.size, avatar.size);
-  game.load.image('f-hair2', 'ui/female_hair-10.svg', avatar.size, avatar.size);
-  game.load.image('f-hair3', 'ui/female_hair-11.svg', avatar.size, avatar.size);
-  game.load.image('f-hair4', 'ui/female_hair-12.svg', avatar.size, avatar.size);
-  game.load.image('f-hair5', 'ui/female_hair-13.svg', avatar.size, avatar.size);
+  game.load.image('f-hair1', 'ui/female_hair-07.svg', avatar.size, avatar.size);
+  game.load.image('f-hair2', 'ui/female_hair-08.svg', avatar.size, avatar.size);
+  game.load.image('f-hair3', 'ui/female_hair-09.svg', avatar.size, avatar.size);
+  game.load.image('f-hair4', 'ui/female_hair-10.svg', avatar.size, avatar.size);
+  game.load.image('f-hair5', 'ui/female_hair-11.svg', avatar.size, avatar.size);
+  game.load.image('f-hair6', 'ui/female_hair-12.svg', avatar.size, avatar.size);
 
   game.load.image('f-shirt1', 'ui/female_shirt-14.svg', avatar.size, avatar.size);
   game.load.image('f-shirt2', 'ui/female_shirt-15.svg', avatar.size, avatar.size);
@@ -208,7 +210,7 @@ function create() {
   game.selectLabel.scale.set(.25, .25);
 
   // show select button and text
-  game.text = game.add.text(game.world.centerX, 294, game.currentCategory.toUpperCase(), {
+  game.text = game.add.text(game.world.centerX, 297, game.currentCategory.toUpperCase(), {
       font: "500 20px Colfax",
       fill: "#E25700",
       align: "center"
@@ -216,15 +218,15 @@ function create() {
   game.text.anchor.setTo(0.5, 0.5);
 
   // center button
-  var buttonRand = game.add.button(100, 0, 'clear', randomAll, this, 1, 1, 1);
-  buttonRand.scale.set(.25, .25);
-
-  // random all button
   var buttonRandAll = game.add.button(100, 150, 'clear', clickCenter, this, 1, 1, 1);
   buttonRandAll.scale.set(.25, .25);
 
+  // random
+  game.dice = game.add.button(290, 9, 'dice', randomAll, this, 1, 0, 1);
+  game.dice.scale.set(.75, .75);
+
   // m/f toggle
-  game.toggle = game.add.button(290, 9, 'toggle', toggleGender, this, 1, 0, 1);
+  game.toggle = game.add.button(260, 9, 'toggle', toggleGender, this, 0, 1, 0);
   game.toggle.scale.set(.75, .75);
 
   // spacebar quick random
@@ -253,7 +255,7 @@ function setMaleFemale() {
     game.categories = ['face','hair','eyes','mouth','shirt'];
     // setup parts arrays
     game.face = ['f-face1'];
-    game.hair = ['f-hair1', 'f-hair2', 'f-hair3', 'f-hair4', 'f-hair5'];
+    game.hair = ['f-hair1', 'f-hair2', 'f-hair3', 'f-hair4', 'f-hair5', 'f-hair6'];
     game.shirt = ['f-shirt1', 'f-shirt2', 'f-shirt3', 'f-shirt4', 'f-shirt5', 'f-shirt6', 'f-shirt7', 'f-shirt8', 'f-shirt9'];
     game.eyes = ['f-eyes1', 'f-eyes2', 'f-eyes3'];
     game.mouth = ['f-mouth1', 'f-mouth2', 'f-mouth3', 'f-mouth4'];
