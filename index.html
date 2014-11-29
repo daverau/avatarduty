@@ -195,7 +195,8 @@ function create() {
   game.header = game.add.sprite(0, 0, 'header');
 
   // save
-  game.saveButton = game.add.button(238, 268, 'savebutton', clickSave, this, 1, 1, 1);
+  game.saveButton = game.add.button(255, 278, 'savebutton', clickSave, this, 1, 1, 1);
+  game.saveButton.scale.set(.75, .75);
 
   // left arrow
   game.buttonL = game.add.button(0, 150, 'larrow', clickArrow, this, 1, 1, 1);
@@ -356,6 +357,7 @@ function clickSave() {
   game.buttonR.alpha = 0;
   game.text.alpha = 0;
   game.toggle.alpha = 0;
+  game.dice.alpha = 0;
 
   var delay=100;
   setTimeout(function(){
@@ -378,6 +380,7 @@ function clickSave() {
     game.buttonR.alpha = 1;
     game.text.alpha = 1;
     game.toggle.alpha = 1;
+    game.dice.alpha = 1;
   },delay);
 }
 
