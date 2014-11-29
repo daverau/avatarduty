@@ -153,7 +153,6 @@ function create() {
   game.slot.eyes = game.add.sprite(55, 45, avatar.gender+'-eyes1');
 
   // keep track of current array pointer counts
-  // this is messy/lame and could be replaced with a proper loop
   game.count = 0;
   game.counts = {};
   game.counts['face'] = 0;
@@ -289,7 +288,6 @@ function clickCenter(button) {
 function clickArrow(button) {
   game.fxblip.play();
   if (button.key == 'rarrow') {
-    // if face
     if (game.currentCategory == 'face') {
       game.slot.face.tint = game.slot.colors.face[++game.count % game.slot.colors.face.length];
     } else {
@@ -326,7 +324,6 @@ function toggleGender() {
 }
 
 
-// change background color
 function cycleBg() {
   game.stage.backgroundColor = game.colors[++game.count % game.colors.length] ;
 }
@@ -351,9 +348,7 @@ function clickSave() {
   game.toggle.alpha = 0;
   game.dice.alpha = 0;
 
-  // after ui is hidden save canvas to dataurl
-  // create img
-  // click download
+  // after ui is hidden save canvas to dataurl; create img; click download
   var delay=100;
   setTimeout(function(){
     var canvas = document.getElementsByTagName("canvas")[0];
@@ -368,7 +363,6 @@ function clickSave() {
   },delay);
 
   // after save is done show the ui again
-  // hacky, but it works
   var delay=200;
   setTimeout(function(){
     game.header.alpha = 1;
@@ -399,7 +393,6 @@ function randomFaceColor() {
 }
 
 
-// randomize all parts
 function randomAll() {
   var rand = 0;
   game.fxrandom.play();
