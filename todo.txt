@@ -1,5 +1,4 @@
 [Todo]
-  Scene switch between M/F
   Title screen/instructions/credits
   Crop screen shot
 

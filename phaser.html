@@ -31,7 +31,6 @@ avatar.size = 320; // size of canvas/base graphics
 // random male/female
 var items = ['m','f'];
 avatar.gender = items[Math.floor(Math.random()*items.length)];
-console.log(avatar.gender);
 
 // init phaser
 var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
