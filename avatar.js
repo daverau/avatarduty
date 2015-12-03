@@ -9,8 +9,6 @@ var avatar = {};
 // size of canvas/base graphics
 avatar.size = 320;
 
-
-
 // random male/female
 avatar.items = ['m','f'];
 avatar.gender = avatar.items[Math.floor(Math.random()*avatar.items.length)];
@@ -21,6 +19,9 @@ var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { pr
 // load assets
 function preload() {
 
+//game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+//game.scale.setScreenSize(true);
+
   // sound
   game.load.audio('ding', 'sfx/ding.wav');
   game.load.audio('blip', 'sfx/blip.wav');
@@ -30,88 +31,90 @@ function preload() {
   game.load.audio('gender', 'sfx/gender.wav');
 
   // ui
-  game.load.image('hex', 'ui/hex.svg', avatar.size, avatar.size);
-  game.load.image('header', 'ui/header.svg', avatar.size, 42);
-  game.load.image('larrow', 'ui/arrow-l.svg', 25 * window.devicePixelRatio, 25 * window.devicePixelRatio);
-  game.load.image('rarrow', 'ui/arrow-r.svg', 25 * window.devicePixelRatio, 25 * window.devicePixelRatio);
-  game.load.image('clear', 'ui/blank.png', 25, 25);
-  game.load.image('savebutton', 'ui/save.svg', 72, 42);
+  game.load.image('hex', 'ui/hex.svg');
+  game.load.image('header', 'ui/header.svg');
+  game.load.image('larrow', 'ui/arrow-l.svg');
+  game.load.image('rarrow', 'ui/arrow-r.svg');
+  game.load.image('clear', 'ui/blank.png');
+  game.load.image('savebutton', 'ui/save.svg');
+
+  // spritesheets have extra coordinates 
   game.load.spritesheet('dice', 'ui/ui_dice.svg', 27, 31);
   game.load.spritesheet('toggle', 'ui/ui_switch.svg', 27, 31);
 
   // parts
   // male
-  game.load.image('blank', 'ui/male_hair-14.svg', avatar.size, avatar.size);
-  game.load.image('m-face1', 'ui/male_faces.svg', avatar.size, avatar.size);
+  game.load.image('blank', 'ui/male_hair-14.svg');
+  game.load.image('m-face1', 'ui/male_faces.svg');
 
-  game.load.image('m-eyes1', 'ui/male_eyes-02.svg', avatar.size, avatar.size);
-  game.load.image('m-eyes2', 'ui/male_eyes-03.svg', avatar.size, avatar.size);
-  game.load.image('m-eyes3', 'ui/male_eyes-34.svg', avatar.size, avatar.size);
+  game.load.image('m-eyes1', 'ui/male_eyes-02.svg');
+  game.load.image('m-eyes2', 'ui/male_eyes-03.svg');
+  game.load.image('m-eyes3', 'ui/male_eyes-34.svg');
 
-  game.load.image('m-mouth1', 'ui/male_mouth-04.svg', avatar.size, avatar.size);
-  game.load.image('m-mouth2', 'ui/male_mouth-05.svg', avatar.size, avatar.size);
-  game.load.image('m-mouth3', 'ui/male_mouth-06.svg', avatar.size, avatar.size);
+  game.load.image('m-mouth1', 'ui/male_mouth-04.svg');
+  game.load.image('m-mouth2', 'ui/male_mouth-05.svg');
+  game.load.image('m-mouth3', 'ui/male_mouth-06.svg');
 
-  game.load.image('m-beard1', 'ui/male_beard-07.svg', avatar.size, avatar.size);
-  game.load.image('m-beard2', 'ui/male_beard-08.svg', avatar.size, avatar.size);
-  game.load.image('m-beard3', 'ui/male_beard-09.svg', avatar.size, avatar.size);
-  game.load.image('m-beard4', 'ui/male_beard-10.svg', avatar.size, avatar.size);
-  game.load.image('m-beard5', 'ui/male_beard-11.svg', avatar.size, avatar.size);
-  game.load.image('m-beard6', 'ui/male_beard-28.svg', avatar.size, avatar.size);
-  game.load.image('m-beard7', 'ui/male_beard-29.svg', avatar.size, avatar.size);
-  game.load.image('m-beard8', 'ui/male_beard-30.svg', avatar.size, avatar.size);
-  game.load.image('m-beard9', 'ui/male_beard-31.svg', avatar.size, avatar.size);
-  game.load.image('m-beard10', 'ui/male_beard-32.svg', avatar.size, avatar.size);
-  game.load.image('m-beard11', 'ui/male_beard-37.svg', avatar.size, avatar.size);
+  game.load.image('m-beard1', 'ui/male_beard-07.svg');
+  game.load.image('m-beard2', 'ui/male_beard-08.svg');
+  game.load.image('m-beard3', 'ui/male_beard-09.svg');
+  game.load.image('m-beard4', 'ui/male_beard-10.svg');
+  game.load.image('m-beard5', 'ui/male_beard-11.svg');
+  game.load.image('m-beard6', 'ui/male_beard-28.svg');
+  game.load.image('m-beard7', 'ui/male_beard-29.svg');
+  game.load.image('m-beard8', 'ui/male_beard-30.svg');
+  game.load.image('m-beard9', 'ui/male_beard-31.svg');
+  game.load.image('m-beard10', 'ui/male_beard-32.svg');
+  game.load.image('m-beard11', 'ui/male_beard-37.svg');
 
-  game.load.image('m-hair1', 'ui/male_hair-12.svg', avatar.size, avatar.size);
-  game.load.image('m-hair2', 'ui/male_hair-13.svg', avatar.size, avatar.size);
-  game.load.image('m-hair3', 'ui/male_hair-15.svg', avatar.size, avatar.size);
-  game.load.image('m-hair4', 'ui/male_hair-16.svg', avatar.size, avatar.size);
-  game.load.image('m-hair5', 'ui/male_hair-36.svg', avatar.size, avatar.size);
+  game.load.image('m-hair1', 'ui/male_hair-12.svg');
+  game.load.image('m-hair2', 'ui/male_hair-13.svg');
+  game.load.image('m-hair3', 'ui/male_hair-15.svg');
+  game.load.image('m-hair4', 'ui/male_hair-16.svg');
+  game.load.image('m-hair5', 'ui/male_hair-36.svg');
 
-  game.load.image('m-shirt1', 'ui/male_shirt-17.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt2', 'ui/male_shirt-18.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt3', 'ui/male_shirt-19.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt4', 'ui/male_shirt-20.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt5', 'ui/male_shirt-21.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt6', 'ui/male_shirt-22.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt7', 'ui/male_shirt-23.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt8', 'ui/male_shirt-24.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt9', 'ui/male_shirt-25.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt10', 'ui/male_shirt-26.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt11', 'ui/male_shirt-27.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt12', 'ui/male_shirt-33.svg', avatar.size, avatar.size);
-  game.load.image('m-shirt13', 'ui/male_shirt-35.svg', avatar.size, avatar.size);
+  game.load.image('m-shirt1', 'ui/male_shirt-17.svg');
+  game.load.image('m-shirt2', 'ui/male_shirt-18.svg');
+  game.load.image('m-shirt3', 'ui/male_shirt-19.svg');
+  game.load.image('m-shirt4', 'ui/male_shirt-20.svg');
+  game.load.image('m-shirt5', 'ui/male_shirt-21.svg');
+  game.load.image('m-shirt6', 'ui/male_shirt-22.svg');
+  game.load.image('m-shirt7', 'ui/male_shirt-23.svg');
+  game.load.image('m-shirt8', 'ui/male_shirt-24.svg');
+  game.load.image('m-shirt9', 'ui/male_shirt-25.svg');
+  game.load.image('m-shirt10', 'ui/male_shirt-26.svg');
+  game.load.image('m-shirt11', 'ui/male_shirt-27.svg');
+  game.load.image('m-shirt12', 'ui/male_shirt-33.svg');
+  game.load.image('m-shirt13', 'ui/male_shirt-35.svg');
 
   // female
-  game.load.image('f-face1', 'ui/female_faces.svg', avatar.size, avatar.size);
+  game.load.image('f-face1', 'ui/female_faces.svg');
 
-  game.load.image('f-eyes1', 'ui/female_eyes-02.svg', avatar.size, avatar.size);
-  game.load.image('f-eyes2', 'ui/female_eyes-03.svg', avatar.size, avatar.size);
-  game.load.image('f-eyes3', 'ui/female_eyes-24.svg', avatar.size, avatar.size);
+  game.load.image('f-eyes1', 'ui/female_eyes-02.svg');
+  game.load.image('f-eyes2', 'ui/female_eyes-03.svg');
+  game.load.image('f-eyes3', 'ui/female_eyes-24.svg');
 
-  game.load.image('f-mouth1', 'ui/female_mouth-23.svg', avatar.size, avatar.size);
-  game.load.image('f-mouth2', 'ui/female_mouth-04.svg', avatar.size, avatar.size);
-  game.load.image('f-mouth3', 'ui/female_mouth-05.svg', avatar.size, avatar.size);
-  game.load.image('f-mouth4', 'ui/female_mouth-06.svg', avatar.size, avatar.size);
+  game.load.image('f-mouth1', 'ui/female_mouth-23.svg');
+  game.load.image('f-mouth2', 'ui/female_mouth-04.svg');
+  game.load.image('f-mouth3', 'ui/female_mouth-05.svg');
+  game.load.image('f-mouth4', 'ui/female_mouth-06.svg');
 
-  game.load.image('f-hair1', 'ui/female_hair-07.svg', avatar.size, avatar.size);
-  game.load.image('f-hair2', 'ui/female_hair-08.svg', avatar.size, avatar.size);
-  game.load.image('f-hair3', 'ui/female_hair-09.svg', avatar.size, avatar.size);
-  game.load.image('f-hair4', 'ui/female_hair-10.svg', avatar.size, avatar.size);
-  game.load.image('f-hair5', 'ui/female_hair-11.svg', avatar.size, avatar.size);
-  game.load.image('f-hair6', 'ui/female_hair-12.svg', avatar.size, avatar.size);
+  game.load.image('f-hair1', 'ui/female_hair-07.svg');
+  game.load.image('f-hair2', 'ui/female_hair-08.svg');
+  game.load.image('f-hair3', 'ui/female_hair-09.svg');
+  game.load.image('f-hair4', 'ui/female_hair-10.svg');
+  game.load.image('f-hair5', 'ui/female_hair-11.svg');
+  game.load.image('f-hair6', 'ui/female_hair-12.svg');
 
-  game.load.image('f-shirt1', 'ui/female_shirt-14.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt2', 'ui/female_shirt-15.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt3', 'ui/female_shirt-16.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt4', 'ui/female_shirt-17.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt5', 'ui/female_shirt-18.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt6', 'ui/female_shirt-19.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt7', 'ui/female_shirt-20.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt8', 'ui/female_shirt-21.svg', avatar.size, avatar.size);
-  game.load.image('f-shirt9', 'ui/female_shirt-22.svg', avatar.size, avatar.size);
+  game.load.image('f-shirt1', 'ui/female_shirt-14.svg');
+  game.load.image('f-shirt2', 'ui/female_shirt-15.svg');
+  game.load.image('f-shirt3', 'ui/female_shirt-16.svg');
+  game.load.image('f-shirt4', 'ui/female_shirt-17.svg');
+  game.load.image('f-shirt5', 'ui/female_shirt-18.svg');
+  game.load.image('f-shirt6', 'ui/female_shirt-19.svg');
+  game.load.image('f-shirt7', 'ui/female_shirt-20.svg');
+  game.load.image('f-shirt8', 'ui/female_shirt-21.svg');
+  game.load.image('f-shirt9', 'ui/female_shirt-22.svg');
 
 } // end preloading
 
@@ -171,7 +174,7 @@ function create() {
   // save
   game.saveButton = game.add.button(game.world.width - 10, game.world.height - 10, 'savebutton', clickSave, this, 1, 1, 1);
   game.saveButton.anchor.setTo(1, 1);
-  game.saveButton.scale.set(.55  * window.devicePixelRatio, .55  * window.devicePixelRatio);
+  game.saveButton.scale.set(.45  * window.devicePixelRatio, .45  * window.devicePixelRatio);
 
   // left arrow
   game.buttonL = game.add.button(15 * window.devicePixelRatio, 150, 'larrow', clickArrow, this, 1, 1, 1);
