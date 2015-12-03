@@ -3,6 +3,9 @@ AvatarDuty - a Phaser.io PagerDuty Hackday Game-thingy
 
 I hacked some marketing video assets into a fun avatar maker for a personal project.
 
+<img src="https://raw.githubusercontent.com/redlabor/avatarduty/master/demo-images/grid.png">
+
+
 Background
 ----------
 I wanted to explore the Phaser.io game framework, so this was an experiment that was both a technical/learning challenge as well as a fun visual exploration in creating some modular people parts.
