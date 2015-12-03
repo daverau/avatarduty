@@ -1,7 +1,7 @@
-AvatarDuty - a Phaser.io PagerDuty Hackday Game-thingy
-======================================================
+AvatarDuty - a Phaser.io PagerDuty Hackday Project
+==================================================
 
-I hacked some marketing video assets into a fun avatar maker for a personal project.
+Hacked some marketing video assets into a fun avatar maker for a personal project.
 
 <img src="https://raw.githubusercontent.com/redlabor/avatarduty/master/demo-images/grid.png">
 
@@ -25,10 +25,9 @@ Features
 * randomize all button
 * save to png
 
-Changelog
+Recently...
 ---------
 
-### Recently...
 * push to this repo
 * update code to not look broken on retina screens
 * update SVG assets with new sizes and colors
