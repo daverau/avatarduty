@@ -11,7 +11,7 @@ Starting in Adobe Illustrator I created variations on face shapes then moved ont
 
 Interface in action
 -------------------
-<img src="http://pixeldrawapp.com/img/drawinghi_web.gif" width="320" >
+<img src="https://raw.githubusercontent.com/redlabor/avatarduty/master/demo-images/ui-demo.gif" width="320" >
 
 Features
 --------
