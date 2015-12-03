@@ -1,7 +1,7 @@
-AvatarDuty: PagerDuty Hackday Project with Phaser.io
-====================================================
+AvatarDuty: Hackday Project with Phaser.io
+==========================================
 
-Hacked some marketing video assets into a fun avatar maker for a personal project.
+Hacked some marketing video assets into a fun avatar maker personal project for a PagerDuty hackday.
 
 <img src="https://raw.githubusercontent.com/redlabor/avatarduty/master/demo-images/grid.png">
 
