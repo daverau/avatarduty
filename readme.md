@@ -1,7 +1,7 @@
 AvatarDuty: Hackday Project with Phaser.io
 ==========================================
 
-Hacked some marketing video assets into a fun avatar maker personal project for a PagerDuty hackday. [Try it](http://daverau.info/avatarduty/) yourself.
+I hacked some marketing video assets into a fun avatar maker for a PagerDuty hackday personal project. [Make your avatar](http://daverau.info/avatarduty/) in fun 8-bit retro-style artwork.
 
 <img src="https://raw.githubusercontent.com/redlabor/avatarduty/master/demo-images/grid.png">
 
@@ -21,6 +21,7 @@ Features
 
 * choose between guy or girl faces
 * choose your face, eyes, mouth, shirt, hair and beard
+* 8-bit retro sound effects
 * change background colors
 * randomize all button
 * save to png
