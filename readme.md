@@ -29,7 +29,8 @@ Features
 Recently...
 ---------
 
-* push to this repo
-* update code to not look broken on retina screens
-* update SVG assets with new sizes and colors
-* revert retina fix (Despite using SVG, which is not natively supported in Phaser, the assets don't scale as cleanly as I'd like on Retina/high-dpi screens, so best viewed a normal 72dpi screen.)
+* pushed to this repo
+* updated code to not look broken on retina screens
+* updated SVG assets with new sizes and colors
+* reverted retina fix (Despite using SVG, which is not natively supported in Phaser, the assets don't scale as cleanly as I'd like on Retina/high-dpi screens, so best viewed a normal 72dpi screen.)
+* updated Phaser to use component output (grunt custom --exclude gamepad,bitmapdata,graphics,rendertexture,p2,bitmaptext,tilesprite,retrofont,video,rope,net,tweens,dom,flexgrid,color,debug,ninja,creature,tilemaps,particles --filename phaser-drau --uglify true)
