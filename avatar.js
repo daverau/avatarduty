@@ -19,9 +19,6 @@ var game = new Phaser.Game(avatar.size, avatar.size, Phaser.CANVAS, 'game', { pr
 // load assets
 function preload() {
 
-//game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-//game.scale.setScreenSize(true);
-
   // sound
   game.load.audio('ding', 'sfx/ding.wav');
   game.load.audio('blip', 'sfx/blip.wav');
