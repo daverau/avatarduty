@@ -174,47 +174,58 @@ function create() {
   // save
   game.saveButton = game.add.button(game.world.width - 10, game.world.height - 10, 'savebutton', clickSave, this, 1, 1, 1);
   game.saveButton.anchor.setTo(1, 1);
-  game.saveButton.scale.set(.45  * window.devicePixelRatio, .45  * window.devicePixelRatio);
+  game.saveButton.inputEnabled = true;
+  game.saveButton.input.useHandCursor = true;
 
   // left arrow
-  game.buttonL = game.add.button(15 * window.devicePixelRatio, 150, 'larrow', clickArrow, this, 1, 1, 1);
-  game.buttonL.anchor.setTo(0.5, 0.5);
-  game.buttonL.scale.set(.25 * window.devicePixelRatio, .25 * window.devicePixelRatio);
+  game.buttonL = game.add.button(8 * window.devicePixelRatio, game.world.centerY, 'larrow', clickArrow, this, 1, 1, 1);
+  game.buttonL.anchor.setTo(0, 0.5);
+  game.buttonL.inputEnabled = true;
+  game.buttonL.input.useHandCursor = true;
 
   // right arrow
-  game.buttonR = game.add.button(game.world.width - (15 * window.devicePixelRatio), 150, 'rarrow', clickArrow, this, 1, 1, 1);
-  game.buttonR.anchor.setTo(0.5, 0.5);
-  game.buttonR.scale.set(.25 * window.devicePixelRatio, .25 * window.devicePixelRatio);
+  game.buttonR = game.add.button(game.world.width - (8 * window.devicePixelRatio), game.world.centerY, 'rarrow', clickArrow, this, 1, 1, 1);
+  game.buttonR.anchor.setTo(1, 0.5);
+  game.buttonR.inputEnabled = true;
+  game.buttonR.input.useHandCursor = true;
 
   // button label
   game.selectLabel = game.add.button(100, 266, 'clear', clickSelect, this, 1, 1, 1);
   game.selectLabel.scale.set(.25, .25);
+  game.selectLabel.inputEnabled = true;
+  game.selectLabel.input.useHandCursor = true;
 
   // show select button and text
   game.text = game.add.text(game.world.centerX, 297, game.currentCategory.toUpperCase(), {
       font: "500 20px Colfax",
-      fill: "#E25700",
+      fill: "#3979EA",
       align: "center"
   });
   game.text.anchor.setTo(0.5, 0.5);
 
   // center button
-  var buttonRandAll = game.add.button(100, 150, 'clear', clickCenter, this, 1, 1, 1);
-  buttonRandAll.scale.set(.25, .25);
+  game.buttonRandAll = game.add.button(100, 150, 'clear', clickCenter, this, 1, 1, 1);
+  game.buttonRandAll.scale.set(.25, .25);
+  game.buttonRandAll.inputEnabled = true;
+  game.buttonRandAll.input.useHandCursor = true;
 
   // random
   game.dice = game.add.button(290, 9, 'dice', randomAll, this, 1, 0, 1);
   game.dice.scale.set(.75, .75);
+  game.dice.inputEnabled = true;
+  game.dice.input.useHandCursor = true;
 
   // m/f toggle
   game.toggle = game.add.button(260, 9, 'toggle', toggleGender, this, 0, 1, 0);
   game.toggle.scale.set(.75, .75);
+  game.toggle.inputEnabled = true;
+  game.toggle.input.useHandCursor = true;
 
   // spacebar quick random
   avatar.key1 = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
   avatar.key1.onDown.add(randomAll, this);
 
-  // rnd
+  // rnd onload for good measure
   randomFaceColor();
   randomHairColor();
 
